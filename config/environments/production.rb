@@ -48,6 +48,7 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = :debug
   
+  # Note: Heroku stores the MailGun envrionment variables
   config.action_mailer.delivery_method = :smtp
   # SMTP settings for mailgun
   config.action_mailer.smtp_settings = {
