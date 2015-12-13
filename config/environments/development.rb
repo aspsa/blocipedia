@@ -38,4 +38,18 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  # Note: Heroku stores the MailGun envrionment variables
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for mailgun
+  config.action_mailer.smtp_settings = {
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain         => 'App6fa4702ee5374b8ba49f8cb2b514d95a.Mailgun.Org',
+    :authentication => :plain,
+  }
+  config.action_mailer.default_url_options = { :host => '$IP:$PORT' }
+
 end
