@@ -51,5 +51,9 @@ Rails.application.configure do
     :authentication => :plain,
   }
   #config.action_mailer.default_url_options = { :host => '$IP:$PORT' }
-  config.action_mailer.default_url_options = { :host => '$IP', :port => '$PORT' }
+  #config.action_mailer.default_url_options = { :host => '$IP', :port => '$PORT' }
+  
+  # The Cloud 9 development envrioment URL for this Rails app
+  config.action_mailer.default_url_options = { :host => 'https://blocipedia-aspsa.c9users.io/' }
+
 end
