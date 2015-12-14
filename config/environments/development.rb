@@ -50,6 +50,6 @@ Rails.application.configure do
     :domain         => 'App6fa4702ee5374b8ba49f8cb2b514d95a.Mailgun.Org',
     :authentication => :plain,
   }
-  config.action_mailer.default_url_options = { :host => '$IP:$PORT' }
-
+  #config.action_mailer.default_url_options = { :host => '$IP:$PORT' }
+  config.action_mailer.default_url_options = { :host => '$IP', :port => '$PORT' }
 end
