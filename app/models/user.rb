@@ -6,23 +6,23 @@ class User < ActiveRecord::Base
          
   has_many :wikis
   
-  # Can create/edit/delete any user's wiki entries.
+  after_initialize :init
+  
   def admin?
     role == 'admin'
   end
   
-  # Can delete but not edit any user's wiki entries.
-  def moderator?
-    role == 'moderator'
+  def premium?
+    role == 'premium'
   end
   
-  # Can create/edit/delete one's own wiki entries.
-  def member?
-    role == 'member'
+  def standard?
+    role == 'standard'
   end
   
-  # Can only view other users' public wiki entries.
-  def guest?
-    role == 'guest'
-  end
+  private
+  
+    def init
+      self.role ||= 'standard'
+    end
 end
