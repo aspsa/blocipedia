@@ -3,6 +3,10 @@ class Wiki < ActiveRecord::Base
   
   after_initialize :init
   
+  def is_private?
+    self.private
+  end
+  
   private
   
     def init

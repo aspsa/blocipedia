@@ -33,6 +33,6 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def destroy?
-    # update?
+    update?
   end
 end
