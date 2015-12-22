@@ -20,11 +20,14 @@ require 'faker'
     )
 end
 
+users = User.all
+
 # Create wikis
 100.times do
     Wiki.create!(
         title: Faker::Lorem.word,
-        body: Faker::Lorem.paragraph
+        body: Faker::Lorem.paragraph,
+        user: users.sample
     )
 end
 
