@@ -1,7 +1,7 @@
 class ChargesController < ApplicationController
   def create
     # Creates a Stripe Customer object for associating with the charge
-    customer = Stripe::Cusomter.create(
+    customer = Stripe::Customer.create(
       email: current_user.email,
       card: params[:stripeToken]
     )
@@ -15,7 +15,7 @@ class ChargesController < ApplicationController
     )
     
     flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
-    redirect_to user_path(current_user) # or wherever
+    redirect_to root_path
     
     # Strip will send back CardErrors with friendly messages when something goes wrong. The 'rescue block' catches and displays those errors.
     rescue Stripe::CardError => e
