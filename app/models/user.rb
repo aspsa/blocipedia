@@ -21,6 +21,14 @@ class User < ActiveRecord::Base
     role == 'standard'
   end
   
+  def account_status?(stat)
+    if upgrade
+      self.update(role: 'premium')
+    else
+      self.update(role: 'standard')
+    end
+  end
+  
   private
   
     def init

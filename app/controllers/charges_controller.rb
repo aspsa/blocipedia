@@ -14,7 +14,8 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
     
-    flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
+    flash[:notice] = "Thank you for the payment #{current_user.email}! Your Blocipedia account has been upgraded to the Premium level."
+    current_user.account_status?('premium')
     redirect_to root_path
     
     # Strip will send back CardErrors with friendly messages when something goes wrong. The 'rescue block' catches and displays those errors.
@@ -26,7 +27,7 @@ class ChargesController < ApplicationController
   def new
     @stripe_btn_data = {
       key: "#{Rails.configuration.stripe[:publishable_key] }",
-      description: "BigMoney Membership",
+      description: "Buy Premium Membership",
       amount: Amount.default
     }
   end
