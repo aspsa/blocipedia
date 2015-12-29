@@ -20,7 +20,8 @@
             <% if current_user.role == 'standard' %>
               <%= link_to "Premium Upgrade", new_charge_path %>
             <% elsif current_user.role == 'premium' %>
-              <%= link_to "Downgrade to Standard", controller: 'welcome_controller', action: 'downgrade' %>
+              <!--%= link_to "Downgrade to Standard", controller: 'WelcomeController', action: 'downgrade' %>-->
+              <%= link_to "Downgrade to Standard", root_path %>
             <% end %>
           <% end %>
         </li>

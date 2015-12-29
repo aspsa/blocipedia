@@ -15,7 +15,8 @@ class ChargesController < ApplicationController
     )
     
     flash[:notice] = "Thank you for the payment #{current_user.email}! Your Blocipedia account has been upgraded to the Premium level."
-    current_user.account_status?('premium')
+    #current_user.account_status?('premium')
+    #current_user.update
     redirect_to root_path
     
     # Strip will send back CardErrors with friendly messages when something goes wrong. The 'rescue block' catches and displays those errors.
