@@ -15,7 +15,7 @@ class ChargesController < ApplicationController
     )
     
     flash[:notice] = "Thank you for the payment #{current_user.email}! Your Blocipedia account has been upgraded to the Premium level."
-    #current_user.account_status?('premium')
+    current_user.account_status?('premium')
     #current_user.update
     redirect_to root_path
     
