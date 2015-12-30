@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :users, only: [:edit, :update]
+  resources :users, only: [:show, :update]
+  #resources :users, only: [:update]
   resources :wikis
   resources :charges, only: [:new, :create]
 

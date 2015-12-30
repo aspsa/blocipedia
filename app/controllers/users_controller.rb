@@ -1,18 +1,26 @@
 class UsersController < ApplicationController
-  def edit
-    update
-  end
-  
-  def update
-    flash[:notice] = "You have elected to downgrade your account to the standard level. Feel free to upgrade your account to a premium level at any time in order to enjoy the full Blocipedia benefits!"
-    if current_user.update(user_params)
-      self.account_status?('standard')
-    end
+  before_action :authenticate_user!
+
+  def show
+    
   end
 
+  def update
+    current_user.update(role: 'standard') unless current_user.role == 'standard'
+    
+    if current_user.update(role: 'standard')
+      flash[:notice] = "You have elected to downgrade your account to the standard level. Feel free to upgrade your account to a premium level at any time in order to enjoy the full Blocipedia benefits!"
+      redirect_to user_path(current_user)
+    else
+      flash[:error] = "Your account failed to downgrade."
+      redirect_to user_path(current_user)
+    end
+  end
+=begin
   private
 
     def user_params
       params.require(:user).permit(:email)
     end
+=end
 end
