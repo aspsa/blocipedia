@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    
+    #update
   end
 
   def update
@@ -16,11 +16,4 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-=begin
-  private
-
-    def user_params
-      params.require(:user).permit(:email)
-    end
-=end
 end
