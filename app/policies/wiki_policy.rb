@@ -13,11 +13,16 @@
 #   Cannot delete other users' public wiki entries.
 #
 # Standard:
-#   Can only view other users' public wiki entries.
+#   Can view other users' public wiki entries.
+#   Can create public wiki entries but not private wiki entries.
 
 class WikiPolicy < ApplicationPolicy
   def create?
-    user.present? && !user.standard?
+    user.present? && ((user.standard? && !record.private) || !user.standard?)
+  end
+
+  def create_private?
+    !user.standard?
   end
 
   def new?
