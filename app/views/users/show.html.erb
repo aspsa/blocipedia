@@ -1,5 +1,5 @@
 <h1>Blocipedia User: <%= current_user.email %></h1>
 
 <% @user.wikis.each do |wiki| %>
-  <%= @user.wiki.title %>
+  <%= wiki.title %>
 <% end %>

@@ -18,7 +18,7 @@
 
 class WikiPolicy < ApplicationPolicy
   def create?
-    user.present? #&& !user.standard?
+    user.present? && ((user.standard? && !record.private) || !user.standard?)
   end
 
   def create_private?
