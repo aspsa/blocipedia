@@ -63,6 +63,10 @@ class WikisController < ApplicationController
     end
   end
   
+  def is_private?
+    self.private
+  end
+  
   private
   
     def wiki_params

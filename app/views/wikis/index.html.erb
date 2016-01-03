@@ -9,6 +9,9 @@
         <div class="media-body">
             <h4 class="media-heading">
                 <%= link_to (markdown_to_html w.title), w %>
+                <% if w.is_private? %>
+                   - private
+                <% end %>
             </h4>
             <p><%= markdown_to_html w.body %></p>
         </div>
