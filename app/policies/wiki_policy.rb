@@ -51,31 +51,36 @@ class WikiPolicy < ApplicationPolicy
     
     def resolve
       wikis = []
-      
-      if user.role == 'admin'
-        wikis = scope.all   # If this is an admin, show all wikis
-      elsif user.role == 'premium'
-        all_wikis = scope.all
-        all_wikis.each do |wiki|
-          if wiki.public? || wiki.user == user || wiki.users.include?(user)
-            wikis << wiki   # If the user has a premium membership, show all
-                            #   public wikis, all his private wikis or all
-                            #   private wikis in which he is a collaborator
+
+      if user.present?
+        if user.role == 'admin'
+          wikis = scope.all   # If this is an admin, show all wikis
+        elsif user.role == 'premium'
+          all_wikis = scope.all
+          all_wikis.each do |wiki|
+            #if wiki.public? || wiki.user == user || wiki.users.include?(user)
+            if !wiki.is_private? || wiki.user == user || wiki.users.include?(user)
+              wikis << wiki   # If the user has a premium membership, show all
+                              #   public wikis, all his private wikis or all
+                              #   private wikis in which he is a collaborator
+            end
           end
-        end
-      else # Standard membership
-        all_wikis = scope.all
-        wikis = []
-        all_wikis.each do |wiki|
-          if wiki.public? || wiki.users.include?(user)
-            wikis << wiki   # If the user has a standard membership, show all
-                            #   public wikis or all private wikis in which he is
-                            #   a collaborator
+        elsif user.role == 'standard'
+          all_wikis = scope.all
+          wikis = []
+  
+          all_wikis.each do |wiki|
+            #if wiki.public? || wiki.users.include?(user)
+            if !wiki.is_private? || wiki.users.include?(user)
+              wikis << wiki   # If the user has a standard membership, show all
+                              #   public wikis or all private wikis in which he is
+                              #   a collaborator
+            end
           end
         end
       end
       
-      wikis   # Return the wikis array
+      wikis  # Return the wikis array
     end
   end
 end
