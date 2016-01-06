@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # *** Order counts ***
+  # Rails executes routing instructions in the order they are written here. In this application, for example, it is important that the Devise route ('devise_for :users') executes before 'resources :users'. Reversing the order results in a HTTP redirect endless loop.
   
   # You can have the root of your site routed with "root"
   root 'welcome#index'
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
   #get 'welcome/about'
   get 'about' => 'welcome#about'
 
+  devise_for :users
+  
   resources :users, only: [:show, :update]
   resources :wikis
   resources :charges, only: [:new, :create]
