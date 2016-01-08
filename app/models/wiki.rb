@@ -1,5 +1,6 @@
 class Wiki < ActiveRecord::Base
   belongs_to :user
+  belongs_to :collaborator
   
   after_initialize :init
   
