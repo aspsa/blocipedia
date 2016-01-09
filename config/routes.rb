@@ -12,7 +12,14 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :users, only: [:show, :update]
-  resources :wikis
+  #resources :wikis
+
+  resources :wikis do
+    member do
+      post :add_collaborator
+    end
+  end
+
   resources :charges, only: [:new, :create]
 
   # The priority is based upon order of creation: first created -> highest priority.

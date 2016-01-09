@@ -14,6 +14,7 @@
 #
 # Standard:
 #   Can view other users' public wiki entries.
+#   Cannot edit other users' public wiki entries.
 #   Can create public wiki entries but not private wiki entries.
 
 class WikiPolicy < ApplicationPolicy
@@ -59,7 +60,7 @@ class WikiPolicy < ApplicationPolicy
           all_wikis = scope.all
           all_wikis.each do |wiki|
             #if wiki.public? || wiki.user == user || wiki.users.include?(user)
-            if !wiki.is_private? || wiki.user == user || wiki.users.include?(user)
+            if !wiki.is_private? || wiki.user == user || wiki.users.include?(user)  
               wikis << wiki   # If the user has a premium membership, show all
                               #   public wikis, all his private wikis or all
                               #   private wikis in which he is a collaborator
@@ -67,7 +68,7 @@ class WikiPolicy < ApplicationPolicy
           end
         elsif user.role == 'standard'
           all_wikis = scope.all
-          wikis = []
+          #wikis = []
   
           all_wikis.each do |wiki|
             #if wiki.public? || wiki.users.include?(user)

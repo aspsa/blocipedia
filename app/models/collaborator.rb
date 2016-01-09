@@ -1,3 +1,4 @@
 class Collaborator < ActiveRecord::Base
-  has_many :users, through: :wikis
+  belongs_to :user
+  belongs_to :wiki
 end

@@ -1,7 +1,8 @@
-<h1>All Wikis</h1>
-
 <% if policy(Wiki.new).create? %>
-    <%= link_to "Create a New Wiki", new_wiki_path, class: 'btn btn-success' %><br /><br /> 
+    <h1>All Wikis / <%= link_to "My Wiki Entries", user_path(current_user) %></h1>
+    <%= link_to "Create a New Wiki", new_wiki_path, class: 'btn btn-success' %><br /><br />
+<% else %>
+    <% flash[:notice] = "Sign up as a registered user to view Blocipedia wikis." %>
 <% end %>
 
 <% @wikis.each do |w| %>

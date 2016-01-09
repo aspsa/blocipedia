@@ -6,6 +6,7 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
+    @users = User.all
   end
 
   def new
@@ -31,6 +32,7 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @users = User.all
     
     authorize @wiki
   end
@@ -65,6 +67,12 @@ class WikisController < ApplicationController
   
   def is_private?
     self.private
+  end
+  
+  def add_collaborator
+    #@wiki = Wiki.find(params[:id])
+    
+    #@wiki.users.Collaborator.create()
   end
   
   private
