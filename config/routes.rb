@@ -16,7 +16,8 @@ Rails.application.routes.draw do
 
   resources :wikis do
     member do
-      post :add_collaborator
+      #post :add_collaborator
+      post 'add_collaborator'
     end
   end
 

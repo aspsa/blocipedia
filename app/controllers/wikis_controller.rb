@@ -70,6 +70,7 @@ class WikisController < ApplicationController
   end
   
   def add_collaborator
+    flash[:notice] = "Entered the WikisController 'add_collaborator' action..."
     #@wiki = Wiki.find(params[:id])
     
     #@wiki.users.Collaborator.create()
