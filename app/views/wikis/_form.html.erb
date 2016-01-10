@@ -12,13 +12,7 @@
         <% if policy(@wiki).create_private? %>
             <div class="form-group">
                 Private? <%= f.check_box :private %><br /><br />
-
-                <!-- h4>Add one or more collaborators to your private wiki entry:</h4> -->
-                <!-- %= @wiki.users.each do |u| %> -->
-                    <!-- p><!-- %= u.email %> </p> -->
-                <!-- % end %> -->
-                <!-- %= @wiki.private %> -->
-
+                
                 <% standard_users = [] %>
                 <% @users.each do |u| %>
                     <% if u.role == 'standard' %>
@@ -27,23 +21,14 @@
                 <% end %>
                 
                 <p>There are currently <%= standard_users.length %> Blocipedia standard registered users.</p>
-                
-                <% standard_users.each do |u| %>
-                    <% unless (u.id == current_user.id) %>
-                       <%= u.email %> | <%= link_to "Collaborate", add_collaborator_wiki_path(@wiki), method: :post %> | <%= link_to "Remove Collaboration", add_collaborator_wiki_path(@wiki), method: :post %><br />
+
+                <% standard_users.each do |su| %>
+                    <% unless (su.id == current_user.id) %>
+                        <%= wiki_collaboration_link(@wiki, su) %> | <%= su.email %> <br />
                     <% end %>
                 <% end %>
             </div>
-            
-            <!-- div class="form-group"> -->
-                <!-- Add one or more collaborators: -->
-                <!-- private_wikis = ['1', '2', '3'] -->
-                
-                <!-- %= f.select(:user, [@wiki.users.collect], {}, { class: 'form-control' }) %> -->
-                <!-- %= f.select(:user, &private_wikis, {}, { class: 'form-control' }) -->
-                <!-- %= f.select(:user, [@wiki.users.each { |p| [ p.user_id ] }], {}, { class: 'form-control' }) %> -->
-            <!-- /div> -->
-        <% end %>
+       <% end %>
         
         <div class="form-group">
             <%= f.submit "Update", class: 'btn btn-success' %>

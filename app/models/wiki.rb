@@ -9,9 +9,13 @@ class Wiki < ActiveRecord::Base
     self.private
   end
   
+  def collaborator?(user)
+    self.collaborators.find_by(user_id: user)
+  end
+  
   private
   
     def init
-        self.private ||= false
+      self.private ||= false
     end
 end

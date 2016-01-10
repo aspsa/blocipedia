@@ -69,11 +69,36 @@ class WikisController < ApplicationController
     self.private
   end
   
-  def add_collaborator
-    flash[:notice] = "Entered the WikisController 'add_collaborator' action..."
-    #@wiki = Wiki.find(params[:id])
+  def add_collaborator()
+    @wiki = Wiki.find(params[:id])
+    @user = User.find(params[:user])
+
+    collaborator = Collaborator.new
+    collaborator.wiki = @wiki
+    collaborator.user = @user
     
-    #@wiki.users.Collaborator.create()
+    if collaborator.save
+      flash[:notice] = "A collaborator was saved."
+      redirect_to edit_wiki_path(@wiki)
+    else
+      flash[:error] = "A collaborator has not been saved."
+      redirect_to edit_wiki_path(@wiki)
+    end
+  end
+  
+  def delete_collaborator
+    @wiki = Wiki.find(params[:id])
+    @user = User.find(params[:user])
+    
+    c = @wiki.collaborators.find_by(params[:id])
+    
+    if c.destroy
+      flash[:notice] = "Collaborator was removed."
+      redirect_to edit_wiki_path(@wiki)
+    else
+      flash[:notice] = "There was an error removing the collaborator."
+      redirect_to edit_wiki_path(@wiki)
+    end
   end
   
   private
