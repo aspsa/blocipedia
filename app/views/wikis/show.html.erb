@@ -1,32 +1,6 @@
 <h1><%= markdown_to_html @wiki.title %></h1>
 <p><%= markdown_to_html @wiki.body %></p>
 
-<!--
-% if policy(@wiki).edit? %>
-    %= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
-% end %>
-
-% if policy(@wiki).destroy? %>
-    %= link_to "Delete", wiki_path(@wiki), method: :delete, class: 'btn btn-danger', data: { confirm: "Are you sure you want to delete this post?" } %><br /><br />
-% end %>
--->
 <%= render "wikis/wiki" %>
 
 <%= link_to "Wiki Home", wikis_path %><br /><br />
-
-<p>Here are you current collaborators:</p>
-
-<% standard_users = [] %>
-<% @users.each do |u| %>
-    <% if u.role == 'standard' %>
-        <% standard_users << u %>
-    <% end %>
-<% end %>
-
-<p>There are currently <%= standard_users.length %> Blocipedia standard registered users.</p>
-
-<% standard_users.each do |u| %>
-    <% unless (u.id == current_user.id) %>
-       <%= u.email %><br />
-    <% end %>
-<% end %>

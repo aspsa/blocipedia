@@ -12,7 +12,7 @@
         <% if policy(@wiki).create_private? %>
             <div class="form-group">
                 Private? <%= f.check_box :private %><br /><br />
-                
+
                 <% standard_users = [] %>
                 <% @users.each do |u| %>
                     <% if u.role == 'standard' %>
