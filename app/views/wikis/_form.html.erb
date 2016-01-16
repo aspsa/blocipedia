@@ -13,16 +13,9 @@
             <div class="form-group">
                 Private? <%= f.check_box :private %><br /><br />
 
-                <% standard_users = [] %>
-                <% @users.each do |u| %>
-                    <% if u.role == 'standard' %>
-                        <% standard_users << u %>
-                    <% end %>
-                <% end %>
-                
-                <p>There are currently <%= standard_users.length %> Blocipedia standard registered users.</p>
+              <p>There are currently <%= standard_users(@users).length %> Blocipedia standard registered users.</p>
 
-                <% standard_users.each do |su| %>
+                <% standard_users(@users).each do |su| %>
                     <% unless (su.id == current_user.id) %>
                         <%= wiki_collaboration_link(@wiki, su) %> | <%= su.email %> <br />
                     <% end %>

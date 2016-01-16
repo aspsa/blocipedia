@@ -11,6 +11,7 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
+    @users = User.all
     
     authorize @wiki
   end
@@ -77,6 +78,8 @@ class WikisController < ApplicationController
     collaborator.wiki = @wiki
     collaborator.user = @user
     
+    authorize @wiki
+    
     if collaborator.save
       flash[:notice] = "A collaborator was saved."
       redirect_to edit_wiki_path(@wiki)
@@ -90,7 +93,10 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     @user = User.find(params[:user])
     
-    c = @wiki.collaborators.find_by(params[:id])
+    # c = @wiki.collaborators.find_by(params[:id])
+    c = Collaborator.where(wiki_id: @wiki.id, user_id: @user.id).first
+    
+    authorize @wiki
     
     if c.destroy
       flash[:notice] = "Collaborator was removed."

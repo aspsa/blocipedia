@@ -13,6 +13,17 @@ class Wiki < ActiveRecord::Base
     self.collaborators.find_by(user_id: user)
   end
   
+  def user_collaborators
+    users = []
+    collaborators = Collaborator.includes(:user).where(wiki_id: self).all
+
+    collaborators.each do |collaborator|
+      users.push(collaborator.user)
+    end
+    
+    users
+  end
+  
   private
   
     def init

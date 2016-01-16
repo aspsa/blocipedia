@@ -4,6 +4,7 @@
 #   Can edit all public wiki entries.
 #   Cannot edit other users' private wiki entries.
 #   Can delete other users' private/public wikis entries.
+#   Can create/delete collaborators on one's own private wikis.
 #
 # Premium:
 #   Can create/edit/delete one's own private/public wiki entries.
@@ -11,6 +12,7 @@
 #   Cannot view any users' private wiki entries.
 #   Can edit all public wiki entries.
 #   Cannot delete other users' public wiki entries.
+#   Can create/delete collaborators on one's own private wikis.
 #
 # Standard:
 #   Can view other users' public wiki entries.
@@ -31,7 +33,8 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present?
+    #user.present?
+    user.present? && (record.private == false || ((user.admin? || record.user == user) || record.user_collaborators.include?(user)))
   end
   
   def edit?
@@ -39,7 +42,16 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def destroy?
-    update? && !user.standard?
+    #update? && !user.standard?
+    user.present? && (record.user == user || user.admin?)
+  end
+
+  def add_collaborator?
+    destroy?
+  end
+  
+  def delete_collaborator?
+    destroy?
   end
 
   class Scope
