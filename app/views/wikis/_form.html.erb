@@ -11,12 +11,22 @@
         
         <% if policy(@wiki).create_private? %>
             <div class="form-group">
-                Private? <%= f.check_box :private %>
+                Private? <%= f.check_box :private %><br /><br />
+                
+                <% unless @wiki.id.nil? %>
+                    <p>There are currently <%= standard_users(@users).length %> Blocipedia standard registered users.</p>
+    
+                    <% standard_users(@users).each do |su| %>
+                        <% unless (su.id == current_user.id) %>
+                            <%= wiki_collaboration_link(@wiki, su) %> | <%= su.email %> <br />
+                        <% end %>
+                    <% end %>
+                <% end %>
             </div>
-        <% end %>
-
+       <% end %>
+        
         <div class="form-group">
-            <%= f.submit "Save", class: 'btn btn-success' %>
+            <%= f.submit "Update", class: 'btn btn-success' %>
         </div>
     <% end %>
 </div>

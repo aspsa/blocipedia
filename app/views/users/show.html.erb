@@ -1,17 +1,14 @@
-<h1>Blocipedia User: <%= current_user.email %></h1>
-
-<!--% @user.wikis.each do |wiki| %>
-  %= wiki.title %>, private: %= wiki.private %><br />
-% end %>-->
+<h2>Blocipedia User <%= current_user.email %>'s Wiki Entries</h2>
+<%= link_to "Create a New Wiki", new_wiki_path, class: 'btn btn-success' %><br /><br />
 
 <% @user.wikis.each do |wiki| %>
     <div class="media">
         <div class="media-body">
             <h4 class="media-heading">
-                <%= link_to (markdown_to_html wiki.title), wiki %>
-                <% if wiki.private %>
-                   - private
+                <% if wiki.is_private? %>
+                   (private)
                 <% end %>
+                <%= link_to (markdown_to_html wiki.title), wiki %>
             </h4>
             <p><%= markdown_to_html wiki.body %></p>
         </div>
